@@ -44,7 +44,7 @@ namespace Led_Cube
         readonly int[] minX = { 0, 3, 6, 9, 12, 15, 18, 21, 24 };
         readonly int[] maxZ = { 18, 21, 24, 45, 48, 51, 72, 75, 78 };
         readonly int[] minZ = { 0, 3, 6, 27, 30, 33, 54, 57, 60 };
-        //boundaries die veranderen bij kleur
+        //Boundaries die veranderen bij kleur
         int[] maxYvar = { 0, 0, 0, 0, 0, 0, 0, 0, 0 }; int[] minYvar = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         int[] maxXvar = { 0, 0, 0, 0, 0, 0, 0, 0, 0 }; int[] minXvar = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
         int[] maxZvar = { 0, 0, 0, 0, 0, 0, 0, 0, 0 }; int[] minZvar = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
@@ -62,7 +62,7 @@ namespace Led_Cube
             foreach (string s in SerialPort.GetPortNames())
                 cbxCOMPort.Items.Add(s);
 
-            mijnPoort = new SerialPort();
+            mijnPoort = new SerialPort();                 //Eigenschappen serialport
             mijnPoort.Parity = Parity.None;
             mijnPoort.DataBits = 8;
             mijnPoort.BaudRate = 250000;
@@ -70,21 +70,22 @@ namespace Led_Cube
 
             lblColor.Content = naamKleur;
 
-            txBlkIntro.Text = "Z = Forwards:\n";
-            txBlkIntro.Text += "S = Backwards:\n";
-            txBlkIntro.Text += "Q = Left:\n";
-            txBlkIntro.Text += "D = Right:\n";
-            txBlkIntro.Text += "R = Up:\n";
-            txBlkIntro.Text += "F = Down:\n";
-            txBlkIntro.Text += "C = Change color";
+            txBlkIntro.Text = "Z = Forwards.\n";          //Info controls
+            txBlkIntro.Text += "S = Backwards.\n";
+            txBlkIntro.Text += "Q = Left.\n";
+            txBlkIntro.Text += "D = Right.\n";
+            txBlkIntro.Text += "R = Up.\n";
+            txBlkIntro.Text += "F = Down.\n";
+            txBlkIntro.Text += "C = Change color.\n";
+            txBlkIntro.Text += "P = Stop program.";
 
-            txBlkGameInfo.Text = "Er verschijnt ergens Random een ledje in de kleuren RGB,\n";
+            txBlkGameInfo.Text = "Er verschijnt ergens Random een ledje in de kleuren RGB,\n";      //Info game
             txBlkGameInfo.Text += "Beweeg en 'pak' het ledje in de juiste kleur,\n";
             txBlkGameInfo.Text += "De score verhoogt.";
 
-            txBlkAnimatieInfo.Text = "De kleur van 'Player'-ledje wordt gebruikt in de animatie.";
+            txBlkAnimatieInfo.Text = "De kleur van 'Player'-ledje wordt gebruikt in de animatie.";  //Info animatie
 
-            if (startBoundaries)
+            if (startBoundaries)                            //Variabele boundaries gelijkstellen aan constante boundaries
             {
                 for (int i = 0; i < maxX.Length; i++)
                 {
@@ -345,7 +346,7 @@ namespace Led_Cube
 
         private void Random_Led()                   //Led gaat aan op random positie met random kleur
         {
-            if ((startRandomLed == true) && (randomLed != 81))                     //RandomLed gaat uit BEHALVE in de eerste keer
+            if ((startRandomLed == true) && (randomLed != 81))                     //RandomLed gaat uit BEHALVE bij de eerste keer
                 data[randomLed] = 0;
             startRandomLed = true;
             int[] positionsRedLed = { 0, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60, 63, 66, 69, 72, 75, 78 };
@@ -421,7 +422,7 @@ namespace Led_Cube
             Random_Led();
         }
 
-        private void btnAnimatie_Click(object sender, RoutedEventArgs e) // WERKT NIET_____________________________________________________
+        private void btnAnimatie_Click(object sender, RoutedEventArgs e) 
         {
             if (mijnPoort.IsOpen)
             {
@@ -436,7 +437,7 @@ namespace Led_Cube
                 data[41] = 255;
                 data[48] = 255;
                 data[50] = 255;
-                for (int j = 0; j < 5; j++)       //Animatie 10x doorlopen
+                for (int j = 0; j < 5; j++)         //Animatie 10x doorlopen
                 {
                     for (int i = 2; i < 21; i += 9)
                         data[i - 2 + color] = 255;
@@ -505,7 +506,7 @@ namespace Led_Cube
             }
         }
 
-        private void btnAuthor_Click(object sender, RoutedEventArgs e)
+        private void btnAuthor_Click(object sender, RoutedEventArgs e)      //Auteur weergeven via klasse 'Author'
         {
             Author persoon = new Author();
             persoon.Voornaam = "Remi";
